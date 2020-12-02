@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './css/App.css';
+import DataEntry from './Component/DataEntry';
+import DataEntry2 from './Component/DataEntry2';
+import { BrowserRouter } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import NotFound from "./Component/NotFound";
+import Grid from "./Component/Grid";
+
+import MailState from "./Context/mailState";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        
+        <MailState>
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/" component={DataEntry} />
+
+              <Route exact path="/test" component={DataEntry2} />
+              <Route exact path="/grid" component={Grid} />
+             
+              <Route path="/" component={NotFound} />
+            </Switch>
+          </BrowserRouter>
+        </MailState>
     </div>
   );
 }
