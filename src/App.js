@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Switch, Route } from "react-router-dom";
 import NotFound from "./Component/NotFound";
 import Grid from "./Component/Grid";
+import ContactList from "./Component/ContactList";
 
 import MailState from "./Context/mailState";
 function App() {
@@ -17,7 +18,8 @@ function App() {
             <Switch>
               <Route exact path="/" component={DataEntry} />
 
-              <Route exact path="/test" component={DataEntry2} />
+              <Route exact path="/ContactList" component={ContactList} />
+              <Route exact path="/test1" component={DataEntry2} />
               <Route exact path="/grid" component={Grid} />
              
               <Route path="/" component={NotFound} />

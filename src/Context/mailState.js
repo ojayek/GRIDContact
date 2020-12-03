@@ -7,12 +7,15 @@ import { SERVER_URL } from "../Constant/constant";
 import {
  CREATE_XML_AND_SEND_MAIL_SUCCESS,
  CREATE_XML_AND_SEND_MAIL_FAIL,
+ GET_CONTACT_LIST_FAIL,
+ GET_CONTACT_LIST_SUCCESS
 } from "./types";
 
 const MailState = (props) => {
   const initialState = {    
     createdXmlAndSendMail: null,
     error: null,
+    contactlist:[],
   };
 
   const [state, dispatch] = useReducer(MailReducer, initialState);
@@ -55,13 +58,41 @@ const MailState = (props) => {
       });
     }
   };
+  const GetContactList = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",       
+      },
+    };
+   
+
+    try {
+      const res = await axios.get(
+        SERVER_URL + "/Contact/GetContactList",         
+         config
+      );
+      //console.log('register data:', res.data);
+      dispatch({
+        type: GET_CONTACT_LIST_SUCCESS,
+        payload: res.data,
+      });
+      
+    } catch (err) {
+      dispatch({
+        type: GET_CONTACT_LIST_FAIL,
+        payload: err.response.data.msgText,
+      });
+    }
+  };
   
   return (
     <MailContext.Provider
       value={{
         createdXmlAndSendMail:state.createdXmlAndSendMail,
-        error: state.error,       
+        error: state.error,    
+        contactlist:state.contactlist,   
         createXmlAndSendMail,
+        GetContactList
      
       }}
     >
